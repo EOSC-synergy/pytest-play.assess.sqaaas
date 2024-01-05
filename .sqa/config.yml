@@ -1,0 +1,42 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/2.0.0
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/pytest-dev/pytest-play:
+      branch: master
+      repo: https://github.com/pytest-dev/pytest-play
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/pytest-dev/pytest-play git:
+        commands:
+        - /usr/bin/env sh .sqa/script.flaky-vermilion-chicken.sh
+        container: qc.acc_seedy-eggplant-badger
+  QC.Doc:
+    repos:
+      github.com/pytest-dev/pytest-play find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.greasy-sapphire-dogfish.sh
+        container: qc.doc_stuffy-linen-dogfish
+      github.com/pytest-dev/pytest-play git:
+        commands:
+        - /usr/bin/env sh .sqa/script.gloppy-harlequin-mastiff.sh
+        container: qc.doc_surly-celadon-coyote
+  QC.Lic:
+    repos:
+      github.com/pytest-dev/pytest-play licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.wheezy-myrtle-bonobo.sh
+        container: qc.lic_flimsy-ochre-capybara
+  QC.Ver:
+    repos:
+      github.com/pytest-dev/pytest-play get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.craggy-ruby-husky.sh
+        container: qc.ver_clammy-malachite-eagle
+timeout: 5400
